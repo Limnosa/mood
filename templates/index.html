@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mood</title>
+</head>
+<body>
+    <main>
+        <form action="/" method="POST">
+            <center>
+                <h2 style="background-color:green; color:white">Bejelentkezés</h2>
+                <p>Felhasználónév:</p><input type="name" name="username">
+                <p>Jelszó:</p><input type="password" name="password"><br><br>
+                <input type="submit" value="Belépés">
+                <br><br>
+                {% if message %}
+                <div style="color:red">{{ message }}</div>
+                {% endif %}
+            </center>
+        </form>
+    </main>
+    <footer>
+        <center>
+            <a href="/signup">Regisztráció</a>
+        </center>
+    </footer>
+</body>
+</html>

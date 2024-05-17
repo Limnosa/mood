@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistics</title>
+</head>
+<body>
+    <footer>
+        <h1 align="center">Diagram létrehozása </h1>
+    </footer>
+    <main>
+        <center>
+            <form action='/statistics' method='POST'>
+                <h3>Válassz ki egy kezdődátumot:</h3>
+                <label for="start_date">Kezdő dátum:</label>
+                <input type="datetime-local" id="start_date" name="start_date">
+                <h3>Válassz ki egy végdátumot:</h3>
+                <label for="end_date">Végdátum:</label>
+                <input type="datetime-local" id="end_date" name="end_date">
+                <br>
+                <input type="submit" value="Generál">
+            </form>
+        </center>
+        {% if image_path %}
+            <center>
+                <img src="static/moodpics/moodpics1.png">
+            </center>
+        {% endif %}
+    </main>
+</body>
+</html>

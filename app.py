@@ -14,6 +14,44 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = b'fgreji5U((U9((zhrf))))fgdgtz!%4554'
 
+conn = sqlite3.connect("pythonsqlite.db")
+c = conn.cursor()
+
+# Kapcsolat ellenőrzése
+if conn is not None:
+    print("Az adatbáziskapcsolat létrejött.")
+else:
+    print("Az adatbáziskapcsolat nem jött létre.")
+
+def create_connection():
+    conn = None
+    try:
+        conn = sqlite3.connect("pythonsqlite.db")
+        print("SQLite verzió:", sqlite3.sqlite_version)
+    except Error as e:
+        print(e)
+    return conn
+
+def create_table():
+    try:
+        c = conn.cursor()
+        sql_query_users = '''CREATE TABLE IF NOT EXISTS users (
+                            id integer PRIMARY KEY,
+                            username text NOT NULL,
+                            password text NOT NULL 
+                        );'''
+        sql_query_moods = '''CREATE TABLE IF NOT EXISTS moods (
+                            id integer PRIMARY KEY,
+                            date text,
+                            mood integer,
+                            user_id integer,
+                            FOREIGN KEY (user_id) REFERENCES users (id) 
+                        );'''
+        c.execute(sql_query_users)
+        c.execute(sql_query_moods)
+        conn.commit()
+    except Error as e:
+        print(e)
 
 @app.route('/', methods=['GET','POST'])
 def index():
@@ -131,7 +169,7 @@ def generate_chart():
 
     return render_template('statistics.html')
 
-
+#ez mi?
 '''if __name__ == "__main__":
     app.run(debug=True, threaded=False)'''
 

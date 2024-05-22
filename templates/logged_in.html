@@ -2,29 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>Main</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <left>
-            <a href="/statistics">Statisztika</a>
+            <a href="/statistics">Mood Chart</a>
         </left>
     </header>
     <main>
         <form action="/setmood" method="POST">
             <center>
-                <h1>Hogy vagy?</h1>
-                <button name="mood" value="1"><img src="static/pics/badmood.jpg" alt="bad" /></button>
-                <button name="mood" value="2"><img src="static/pics/midbadmood.jpg" alt="midbad"></button>
-                <button name="mood" value="3"><img src="static/pics/midmood.jpg" alt="ew"></button>
-                <button name="mood" value="4"><img src="static/pics/midhappymood.jpg" alt="midhappy"></button>
-                <button name="mood" value="5"><img src="static/pics/happymood.jpg" alt="happy"></button>
+                <h1>How are you feeling right now?</h1>
+                <button name="mood" value="1"><img src="static/pics/badmood.jpg" alt="Very bad" /></button>
+                <button name="mood" value="2"><img src="static/pics/midbadmood.jpg" alt="Bad"></button>
+                <button name="mood" value="3"><img src="static/pics/midmood.jpg" alt="Okay"></button>
+                <button name="mood" value="4"><img src="static/pics/midhappymood.jpg" alt="Happy"></button>
+                <button name="mood" value="5"><img src="static/pics/happymood.jpg" alt="Very happy"></button>
             </center>
         </form>
     </main>
     <footer>
         <right>
-            <a href="/">Kijelentkezés</a>
+            <a href="/">Sign out</a>
         </right>
     </footer>
 </body>

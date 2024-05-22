@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
         <form action="/signup" method="POST">
             <center>
-                <h2>Regisztráció</h2>
-                <p>Felhasználónév:</p><input type="name" name="username">
-                <p>Jelszó:</p><input type="password" name="password"><br><br>
+                <h2>Sign up</h2>
+                <p>Username:</p><input type="name" name="username">
+                <p>Password:</p><input type="password" name="password"><br><br>
                 <input type="submit">
                 <br><br>
                 {% if message %}
@@ -23,7 +26,7 @@
     </main>
     <footer>
         <center>
-            <a href="/">Bejelentkezés</a>
+            <a href="/">Sign in</a>
         </center>
     </footer>
 </body>

@@ -2,16 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>Mood</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
         <form action="/" method="POST">
             <center>
-                <h2 style="background-color:green; color:white">Bejelentkezés</h2>
-                <p>Felhasználónév:</p><input type="name" name="username">
-                <p>Jelszó:</p><input type="password" name="password"><br><br>
-                <input type="submit" value="Belépés">
+                <h2 style="background-color:green; color:white">Sign in</h2>
+                <p>Username:</p><input type="name" name="username">
+                <p>Password:</p><input type="password" name="password"><br><br>
+                <input type="submit" value="Sign in">
                 <br><br>
                 {% if message %}
                 <div style="color:red">{{ message }}</div>
@@ -21,7 +24,7 @@
     </main>
     <footer>
         <center>
-            <a href="/signup">Regisztráció</a>
+            <a href="/signup">Sign up</a>
         </center>
     </footer>
 </body>

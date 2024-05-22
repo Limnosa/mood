@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>Statistics</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <footer>
-        <h1 align="center">Diagram létrehozása </h1>
+        <h1 align="center">Generate Mood Chart</h1>
     </footer>
     <main>
         <center>
             <form action='/statistics' method='POST'>
-                <h3>Válassz ki egy kezdődátumot:</h3>
-                <label for="start_date">Kezdő dátum:</label>
+                <h3>Start Date:</h3>
                 <input type="datetime-local" id="start_date" name="start_date">
-                <h3>Válassz ki egy végdátumot:</h3>
-                <label for="end_date">Végdátum:</label>
+                <h3>End Date:</h3>
                 <input type="datetime-local" id="end_date" name="end_date">
                 <br>
-                <input type="submit" value="Generál">
+                <input type="submit" value="Generate">
             </form>
         </center>
         {% if image_path %}
@@ -27,5 +28,10 @@
             </center>
         {% endif %}
     </main>
+    <footer>
+        <right>
+            <a href="/">Sign out</a>
+        </right>
+    </footer>
 </body>
 </html>

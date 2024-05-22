@@ -69,7 +69,7 @@ def index():
                 session['user_id'] = results[0][0]
                 return render_template("logged_in.html")
             else:
-                return render_template('index.html' , message="Sikertelen bejelentkezés. Próbáld újra!")
+                return render_template('index.html' , message="Login unsuccessful. Please try again!")
         except sqlite3.Error as e:
             print("Adatbázis hiba: " + str(e))
         finally:
@@ -91,9 +91,9 @@ def sign_up():
                 insert_query = "INSERT INTO users (username, password) VALUES (?, ?)"
                 c.execute(insert_query, (username, hashed_password,))
                 conn.commit()
-                return render_template('sign_up.html', message=f"Gratulálunk! Sikeresen regisztráltál {username} néven!")
+                return render_template('sign_up.html', message=f"Hooray! You have successfully registered as {username}.")
             except sqlite3.IntegrityError:
-                return render_template('sign_up.html', message2=f"{username} már szerepel az adatbázisban. Válassz másik felhasználónevet!")
+                return render_template('sign_up.html', message2=f"This username is already taken. Please choose another one.")
         except sqlite3.Error as e:
             print("Adatbázis hiba: " + str(e))
         finally:
@@ -148,9 +148,9 @@ def generate_chart():
             plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d %H:%M'))
             plt.gca().xaxis.set_major_locator(mdates.DayLocator())
             plt.gcf().autofmt_xdate()
-            plt.xlabel('Dátum')
-            plt.ylabel('Hangulatszint')
-            plt.title('Hangulatszint időben')
+            plt.xlabel('Date')
+            plt.ylabel('Mood level')
+            plt.title('Mood chart')
             plt.grid(True)
 
             # Diagram mentése képként

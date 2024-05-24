@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, jsonify
 import os
 from os.path import join
 import matplotlib
@@ -8,20 +8,13 @@ import matplotlib.dates as mdates
 import numpy as np
 from datetime import datetime
 import sqlite3
+from sqlite3 import Error
 import hashlib
+import pytz
 
 
 app = Flask(__name__)
 app.secret_key = b'fgreji5U((U9((zhrf))))fgdgtz!%4554'
-
-conn = sqlite3.connect("pythonsqlite.db")
-c = conn.cursor()
-
-# Kapcsolat ellenőrzése
-if conn is not None:
-    print("Az adatbáziskapcsolat létrejött.")
-else:
-    print("Az adatbáziskapcsolat nem jött létre.")
 
 def create_connection():
     conn = None
@@ -33,31 +26,38 @@ def create_connection():
     return conn
 
 def create_table():
-    try:
-        c = conn.cursor()
-        sql_query_users = '''CREATE TABLE IF NOT EXISTS users (
-                            id integer PRIMARY KEY,
-                            username text NOT NULL,
-                            password text NOT NULL 
-                        );'''
-        sql_query_moods = '''CREATE TABLE IF NOT EXISTS moods (
-                            id integer PRIMARY KEY,
-                            date text,
-                            mood integer,
-                            user_id integer,
-                            FOREIGN KEY (user_id) REFERENCES users (id) 
-                        );'''
-        c.execute(sql_query_users)
-        c.execute(sql_query_moods)
-        conn.commit()
-    except Error as e:
-        print(e)
+    conn = create_connection()
+    if conn is not None:
+        try:
+            c = conn.cursor()
+            sql_query_users = '''CREATE TABLE IF NOT EXISTS users (
+                                id integer PRIMARY KEY,
+                                username text NOT NULL,
+                                password text NOT NULL,
+                                timezone text
+                            );'''
+            sql_query_moods = '''CREATE TABLE IF NOT EXISTS moods (
+                                id integer PRIMARY KEY,
+                                date text,
+                                mood integer,
+                                user_id integer,
+                                FOREIGN KEY (user_id) REFERENCES users (id) 
+                            );'''
+            c.execute(sql_query_users)
+            c.execute(sql_query_moods)
+            conn.commit()
+        except Error as e:
+            print(e)
+        finally:
+            conn.close()
+
+create_table()
 
 @app.route('/', methods=['GET','POST'])
 def index():
     if request.method == 'POST':
         try:
-            conn = sqlite3.connect("pythonsqlite.db")
+            conn = create_connection()
             c = conn.cursor()
             username = request.form['username']
             password = request.form['password']
@@ -82,7 +82,7 @@ def index():
 def sign_up():
     if request.method == 'POST':
         try:
-            conn = sqlite3.connect("pythonsqlite.db")
+            conn = create_connection()
             c = conn.cursor()
             username = request.form['username']
             password = request.form['password']
@@ -104,44 +104,53 @@ def sign_up():
 @app.route('/setmood', methods=['GET','POST'])
 def set_mood():
     if 'user_id' not in session:
-        return redirect('/login')
+        return redirect('/')
     if request.method == 'POST':
         try:
             user_id = session['user_id']
             mood = request.form['mood']
-            conn = sqlite3.connect("pythonsqlite.db")
+            conn = create_connection()
             c = conn.cursor()
-            sql_query = '''INSERT INTO moods (date, mood, user_id) VALUES (CURRENT_TIMESTAMP , ? , ? )'''
-            c.execute(sql_query, (mood, user_id, ))
+            c.execute('''SELECT timezone FROM users WHERE id = ?''', (user_id,))
+            user_timezone = c.fetchone()[0] or 'UTC'
+            user_tz = pytz.timezone(user_timezone)
+            current_time = datetime.now(user_tz).strftime('%Y-%m-%d %H:%M')
+            c.execute('''SELECT id FROM moods WHERE date = ? AND user_id = ?''', (current_time, user_id))
+            row = c.fetchone()
+
+            if row:
+                sql_update = '''UPDATE moods SET mood = ? WHERE id = ?'''
+                c.execute(sql_update, (mood, row[0]))
+            else:
+                sql_insert = '''INSERT INTO moods (date, mood, user_id) VALUES (? , ? , ? )'''
+                c.execute(sql_insert, (current_time, mood, user_id, ))
+                conn.commit()
         except sqlite3.Error as e:
             print("Adatbázis hiba: " + str(e))
         finally:
             if conn:
-                conn.commit()
                 conn.close()
     return render_template('logged_in.html')
 
 @app.route('/statistics', methods=['GET', 'POST'])
 def generate_chart():
     if 'user_id' not in session:
-        return redirect('/login')
+        return redirect('/')
     if request.method == 'POST':
         try:
-            start_date = request.form['start_date']
-            end_date = request.form['end_date']
+            start_date = request.form['start_date'] + ' 00:00'
+            end_date = request.form['end_date'] + ' 23:59'
             user_id = session['user_id']
-            conn = sqlite3.connect('pythonsqlite.db')
+            conn = create_connection()
             c = conn.cursor()
             query = "SELECT date, mood FROM moods WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY date"
             c.execute(query, (user_id, start_date, end_date))
             data = c.fetchall()
             print(data)
-            #conn.close()
 
             #diagram generálása
-            dates = [i[0] for i in data]
+            dates = [datetime.strptime(i[0], '%Y-%m-%d %H:%M') for i in data]
             mood_values = [i[1] for i in data]
-            dates = [datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S') for date_str in dates]
             plt.figure(figsize=(10, 6))
             plt.plot(dates, mood_values, marker='o', linestyle='-')
             plt.yticks(range(int(min(mood_values)), int(max(mood_values)) + 1))
@@ -168,6 +177,26 @@ def generate_chart():
             print("Adatbázis hiba: " + str(e))
 
     return render_template('statistics.html')
+
+@app.route('/set_timezone', methods=['POST'])
+def set_timezone():
+    if 'user_id' not in session:
+        return redirect('/')
+    user_id = session['user_id']
+    data = request.get_json()
+    user_timezone = data['timezone']
+    try:
+        conn = create_connection()
+        c = conn.cursor()
+        c.execute('UPDATE users SET timezone = ? WHERE id = ?', (user_timezone, user_id))
+        conn.commit()
+    except sqlite3.Error as e:
+        print("Adatbázis hiba: " + str(e))
+        return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+    return jsonify({"status": "success"})
 
 #ez mi?
 '''if __name__ == "__main__":

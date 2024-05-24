@@ -27,5 +27,27 @@
             <a href="/signup">Sign up</a>
         </center>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log("User Time Zone: " + userTimeZone);
+
+            fetch("/set_timezone", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ timezone: userTimeZone })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Time zone set:", data);
+            })
+            .catch(error => {
+                console.error("Error setting time zone:", error);
+            });
+        });
+    </script>
 </body>
 </html>

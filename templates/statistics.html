@@ -15,18 +15,19 @@
         <center>
             <form action='/statistics' method='POST'>
                 <h3>Start Date:</h3>
-                <!-- <input type="datetime-local" id="start_date" name="start_date"> -->
                 <input type="date" id="start_date" name="start_date">
                 <h3>End Date:</h3>
-                <!-- <input type="datetime-local" id="end_date" name="end_date"> -->
                 <input type="date" id="end_date" name="end_date">
                 <br>
                 <input type="submit" value="Generate">
             </form>
         </center>
-        {% if image_path %}
+        {% if message3%}
+            <div>{{ message3 }}</div>
+        {% endif %}
+        {% if image %}
             <center>
-                <img src="static/moodpics/moodpics1.png">
+                <p>{{ image|safe }}</p>
             </center>
         {% endif %}
     </main>

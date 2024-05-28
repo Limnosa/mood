@@ -117,10 +117,12 @@ def set_mood():
             current_time = datetime.now(user_tz).strftime('%Y-%m-%d %H:%M')
             c.execute('''SELECT id FROM moods WHERE date = ? AND user_id = ?''', (current_time, user_id))
             row = c.fetchone()
+            print(row)
 
             if row:
                 sql_update = '''UPDATE moods SET mood = ? WHERE id = ?'''
                 c.execute(sql_update, (mood, row[0]))
+                conn.commit()
             else:
                 sql_insert = '''INSERT INTO moods (date, mood, user_id) VALUES (? , ? , ? )'''
                 c.execute(sql_insert, (current_time, mood, user_id, ))
@@ -146,17 +148,20 @@ def generate_chart():
             query = "SELECT date, mood FROM moods WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY date"
             c.execute(query, (user_id, start_date, end_date))
             data = c.fetchall()
-            print(data)
+            if not data:
+                return render_template('statistics.html', message3="No data available for the selected time period.")
 
             #diagram generálása
             dates = [datetime.strptime(i[0], '%Y-%m-%d %H:%M') for i in data]
             mood_values = [i[1] for i in data]
+            valid_dates = [date for date, mood in zip(dates, mood_values)]
             plt.figure(figsize=(10, 6))
             plt.plot(dates, mood_values, marker='o', linestyle='-')
-            plt.yticks(range(int(min(mood_values)), int(max(mood_values)) + 1))
+            plt.yticks(range(1,6))
             plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d %H:%M'))
             plt.gca().xaxis.set_major_locator(mdates.DayLocator())
-            plt.gcf().autofmt_xdate()
+            plt.gca().xaxis.set_minor_locator(mdates.AutoDateLocator())
+            plt.xticks(valid_dates, rotation=45)
             plt.xlabel('Date')
             plt.ylabel('Mood level')
             plt.title('Mood chart')
@@ -166,12 +171,14 @@ def generate_chart():
             c.execute("SELECT username FROM users WHERE id=?", (user_id,))
             name = c.fetchone()[0]
             save_directory = 'static/moodpics/'
-            filename = f"{name}_{start_date.replace(':', '').replace('-', '_')}_{end_date.replace(':', '').replace('-', '_')}.png"
+            filename = f"{name}_{start_date.replace(' 00:00', '').replace('-', '_')}_{end_date.replace(' 23:59', '').replace('-', '_')}.png"
             save_path = os.path.join(save_directory, filename)
             plt.savefig(save_path, format='png')
             plt.close()
             conn.close()
-            return render_template('statistics.html', image_path=save_path)
+            img_url = save_directory+filename
+            image = '<img src="{0}"></a>'.format(img_url)
+            return render_template('statistics.html', image=image)
 
         except sqlite3.Error as e:
             print("Adatbázis hiba: " + str(e))

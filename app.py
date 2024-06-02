@@ -12,8 +12,8 @@ from sqlite3 import Error
 import hashlib
 import pytz
 
-
 app = Flask(__name__)
+#app.static_url_path = '/static'
 app.secret_key = b'fgreji5U((U9((zhrf))))fgdgtz!%4554'
 
 def create_connection():
@@ -205,9 +205,5 @@ def set_timezone():
             conn.close()
     return jsonify({"status": "success"})
 
-#ez mi?
-'''if __name__ == "__main__":
-    app.run(debug=True, threaded=False)'''
-
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='127.0.0.1', port=5000, debug=True)

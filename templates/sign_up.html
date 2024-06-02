@@ -5,29 +5,36 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' >
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Comme:wght@300;400;500;600;700;800;900&display=swap' rel='stylesheet'>
 </head>
 <body>
     <main>
-        <form action="/signup" method="POST">
-            <center>
-                <h2>Sign up</h2>
-                <p>Username:</p><input type="name" name="username">
-                <p>Password:</p><input type="password" name="password"><br><br>
-                <input type="submit">
-                <br><br>
+        <div class="wrapper">
+            <form action="/signup" method="POST">
+                <br><h2 style = "color: #306AFF">Sign up</h2>
+                <div class="login-boxes">
+                    <input type="name" name="username" placeholder="Username">
+                    <i class='bx bxs-user-plus'></i>
+                </div>
+                <div class="login-boxes">
+                    <input type="password" name="password" placeholder="Password">
+                    <i class='bx bxs-lock-alt' ></i><br>
+                </div>
+                <input type="submit" class="btn" value="Register">
+                <div class="register" type="register">
+                        <p>Already have an account? <a href="/">Login</a></p>
+                </div>
+                <br>
                 {% if message %}
-                <div>{{ message }}</div>
+                <div class="success">{{ message }}</div>
                 {% elif message2 %}
-                <div style="color: red;">{{ message2 }}</div>
+                <div class="error">{{ message2 }}</div>
                 {% endif %}
-            </center>
-        </form>
+            </form>
+        </div>
+        <video src="https://videos.pexels.com/video-files/855785/855785-hd_1280_720_24fps.mp4" autoplay muted loop></video>
     </main>
-    <footer>
-        <center>
-            <a href="/">Sign in</a>
-        </center>
-    </footer>
 </body>
 </html>

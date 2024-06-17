@@ -17,10 +17,8 @@ body {
     height: 100%;
     background: transparent;
     position: relative;
-    border: 2px solid rgba(255, 255, 255, .2);
+    border-width: 2px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    color: #fff;
     border-radius: 20px;
     padding: 10px 20px;
     z-index: 6;
@@ -39,8 +37,6 @@ body {
     height: 50px;
     margin: 30px 0;
     border-radius: 30px;
-    color: #4479FF;
-    box-shadow: 0 0 10px #4479FF;
 }
 
 .login-boxes input {
@@ -49,16 +45,12 @@ body {
     background: transparent;
     border: none;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 50px;
     font-size: 16px;
-    color: #306AFF;
     padding: 1px 0px 1px 15px;
-    text-shadow: 0px 0px 0 #798288;
 }
 
 .login-boxes input::placeholder {
-    color: #306AFF;
     text-shadow: 1px 1px 1 #000000;
     font-weight: 500;
 }
@@ -82,17 +74,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 16px;
-    color: #333;
     font-weight: 600;
-}
-
-.btn:hover {
-    background-color: #306AFF;
-    color: #FFF;
-}
-
-.btn:active {
-    background-color: #003f7f;
+    transition: background-color 0.1s, color 0.1s;
 }
 
 .wrapper .register {
@@ -102,7 +85,6 @@ body {
 }
 
 .register p a {
-    color: #fff;
     text-decoration: none;
     font-weight: 600;
 }
@@ -135,4 +117,83 @@ video {
     left: 0px;
     object-fit: cover;
     z-index: 2;
+    opacity: 0.3;
+}
+
+/*---------------------------------------------INDEX.HTML--------------------------------------------------------*/
+
+.login {
+    box-shadow: 0 0 10px #5989A5;
+    color: #306AFF;
+}
+
+.login .login-boxes {
+    color: #4479FF;
+    box-shadow: 0 0 10px #5989A5;
+}
+
+.login .login-boxes input {
+    color: #306AFF;
+    text-shadow: 0px 0px 0 #798288;
+}
+
+.login .login-boxes input::placeholder {
+    color: #306AFF;
+}
+
+.login .btn {
+    color: #306AFF;
+}
+
+.login .btn:active {
+    background-color: #003f7f;
+    color: #FFF;
+}
+
+.login .btn:hover {
+    background-color: #306AFF;
+    color: #FFF;
+}
+
+.login .register p a {
+    color: #306AFF;
+}
+
+/*---------------------------------------------SIGN_UP.HTML--------------------------------------------------------*/
+
+.signup {
+    box-shadow: 0 0 10px #59A566;
+    color: #69AD67;
+}
+
+.signup .login-boxes {
+    color: #69AD67;
+    box-shadow: 0 0 10px #59A566;
+}
+
+.signup .login-boxes input {
+    color: #69AD67;
+    text-shadow: 0px 0px 0 #69AD67;
+}
+
+.signup .login-boxes input::placeholder {
+    color: #69AD67;
+}
+
+.signup .btn {
+    color: #69AD67;
+}
+
+.signup .btn:active {
+    background-color: #057401;
+    color: #FFF;
+}
+
+.signup .btn:hover {
+    background-color: #69AD67;
+    color: #FFF;
+}
+
+.signup .register p a {
+    color: #69AD67;
 }

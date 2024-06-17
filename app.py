@@ -88,12 +88,15 @@ def sign_up():
             password = request.form['password']
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
             try:
-                insert_query = "INSERT INTO users (username, password) VALUES (?, ?)"
-                c.execute(insert_query, (username, hashed_password,))
-                conn.commit()
-                return render_template('sign_up.html', message=f"Hooray! You have successfully registered as {username}.")
+                if username != "":
+                    insert_query = "INSERT INTO users (username, password) VALUES (?, ?)"
+                    c.execute(insert_query, (username, hashed_password,))
+                    conn.commit()
+                    return render_template('sign_up.html', message=f"Hooray! You have successfully registered as {username}.")
+                else:
+                    return render_template('sign_up.html', message2=f"Please enter a valid username. The username cannot be empty.")
             except sqlite3.IntegrityError:
-                return render_template('sign_up.html', message2=f"This username is already taken. Please choose another one.")
+                return render_template('sign_up.html', message3=f"This username is already taken. Please choose another one.")
         except sqlite3.Error as e:
             print("Adatbázis hiba: " + str(e))
         finally:

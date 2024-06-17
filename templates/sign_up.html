@@ -11,9 +11,9 @@
 </head>
 <body>
     <main>
-        <div class="wrapper">
+        <div class="wrapper signup">
             <form action="/signup" method="POST">
-                <br><h2 style = "color: #306AFF">Sign up</h2>
+                <br><h2>Sign up</h2>
                 <div class="login-boxes">
                     <input type="name" name="username" placeholder="Username">
                     <i class='bx bxs-user-plus'></i>
@@ -31,7 +31,10 @@
                 <div class="success">{{ message }}</div>
                 {% elif message2 %}
                 <div class="error">{{ message2 }}</div>
+                {% elif message3 %}
+                <div class="error">{{ message3 }}</div>
                 {% endif %}
+
             </form>
         </div>
         <video src="https://videos.pexels.com/video-files/855785/855785-hd_1280_720_24fps.mp4" autoplay muted loop></video>

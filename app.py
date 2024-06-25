@@ -112,6 +112,7 @@ def set_mood():
         try:
             user_id = session['user_id']
             mood = request.form['mood']
+            print(request.form)
             conn = create_connection()
             c = conn.cursor()
             c.execute('''SELECT timezone FROM users WHERE id = ?''', (user_id,))

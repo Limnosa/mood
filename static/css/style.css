@@ -1,3 +1,13 @@
+:root {
+    --login-text-shadow: #798288;
+    --login-box-shadow: #5989A5;
+    --login-text: #306AFF;
+    --signup-box-shadow: #59A566;
+    --signup-text: #69AD67;
+    --loggedin-bg: #D6D6D6;
+    --gold: #FAEA3E;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -5,9 +15,11 @@
     font-family: "Comme", sans-serif;
 }
 
-body {
+/*------------------------------------------INDEX.HTML + SIGN_UP.HTML--------------------------------------------*/
+.login-body {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     min-height: 100vh;
 }
@@ -28,7 +40,7 @@ body {
     font-size: 36px;
     text-align: center;
     font-weight: 600;
-    text-shadow: 1px 1px 0 #798288;
+    text-shadow: 1px 1px 0 var(--login-text-shadow);
 }
 
 .wrapper .login-boxes {
@@ -66,7 +78,7 @@ body {
 .wrapper .btn {
     width: 100%;
     height: 40px;
-    background: #fff;
+    background: #FFFFFF;
     position: relative;
     border: none;
     outline: none;
@@ -94,19 +106,19 @@ body {
 }
 
 .wrapper .error {
-    color: red;
+    color: #FF0000;
     font-size: 16px;
     text-align: center;
     font-weight: 600;
-    text-shadow: 0px 0px 0 #798288;
+    text-shadow: 0px 0px 0 var(--login-text-shadow);
 }
 
 .wrapper .success {
-    color: green;
+    color: #00BF00;
     font-size: 16px;
     text-align: center;
     font-weight: 600;
-    text-shadow: 0px 0px 0 #798288;
+    text-shadow: 0px 0px 0 var(--login-text-shadow);
 }
 
 video {
@@ -123,26 +135,26 @@ video {
 /*---------------------------------------------INDEX.HTML--------------------------------------------------------*/
 
 .login {
-    box-shadow: 0 0 10px #5989A5;
-    color: #306AFF;
+    box-shadow: 0 0 10px var(--login-box-shadow);
+    color: var(--login-text);
 }
 
 .login .login-boxes {
     color: #4479FF;
-    box-shadow: 0 0 10px #5989A5;
+    box-shadow: 0 0 10px var(--login-box-shadow);
 }
 
 .login .login-boxes input {
-    color: #306AFF;
-    text-shadow: 0px 0px 0 #798288;
+    color: var(--login-text);
+    text-shadow: 0px 0px 0 var(--login-text-shadow);
 }
 
 .login .login-boxes input::placeholder {
-    color: #306AFF;
+    color: var(--login-text);
 }
 
 .login .btn {
-    color: #306AFF;
+    color: var(--login-text);
 }
 
 .login .btn:active {
@@ -151,49 +163,283 @@ video {
 }
 
 .login .btn:hover {
-    background-color: #306AFF;
+    background-color: var(--login-text);
     color: #FFF;
 }
 
 .login .register p a {
-    color: #306AFF;
+    color: var(--login-text);
 }
 
 /*---------------------------------------------SIGN_UP.HTML--------------------------------------------------------*/
 
 .signup {
-    box-shadow: 0 0 10px #59A566;
-    color: #69AD67;
+    box-shadow: 0 0 10px var(--signup-box-shadow);
+    color: var(--signup-text);
 }
 
 .signup .login-boxes {
-    color: #69AD67;
-    box-shadow: 0 0 10px #59A566;
+    color: var(--signup-text);
+    box-shadow: 0 0 10px var(--signup-box-shadow);
 }
 
 .signup .login-boxes input {
-    color: #69AD67;
-    text-shadow: 0px 0px 0 #69AD67;
+    color: var(--signup-text);
+    text-shadow: 0px 0px 0 var(--signup-text);
 }
 
 .signup .login-boxes input::placeholder {
-    color: #69AD67;
+    color: var(--signup-text);
 }
 
 .signup .btn {
-    color: #69AD67;
+    color: var(--signup-text);
 }
 
 .signup .btn:active {
     background-color: #057401;
-    color: #FFF;
+    color: #FFFFFF;
 }
 
 .signup .btn:hover {
-    background-color: #69AD67;
-    color: #FFF;
+    background-color: var(--signup-text);
+    color: #FFFFFF;
 }
 
 .signup .register p a {
-    color: #69AD67;
+    color: var(--signup-text);
+}
+
+/*---------------------------------------------LOGGED_IN.HTML------------------------------------------------------*/
+
+.container {
+  width: 100%;
+}
+
+.li-body {
+    background-color: var(--loggedin-bg);
+}
+
+.li-header {
+  position:static;
+  text-align:center;
+  background: linear-gradient(60deg, var(--login-text) 0%, var(--loggedin-bg) 100%);
+  color:white;
+  margin-bottom: 65px;
+}
+
+.nav-bar {
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  font-weight: 500;
+}
+
+.nav-bar a {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.sign-out {
+    border: 0;
+    outline: 0;
+    background: #B40400;
+    border-radius: 20px;
+    line-height: 50px;
+    width: 125px;
+    margin-right: 10px;
+}
+.sign-out:hover {
+    background: #E80601;
+}
+
+.mood-chart {
+    margin: 0 1rem;
+    display: block;
+    position: relative;
+    padding: 0.2em 0;
+}
+
+.mood-chart::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0px;
+  height: 2px;
+  background: #fff;
+  transition: all 0.45s;
+}
+
+.mood-chart:hover::after,
+.mood-chart:focus::after{
+  width: 100%;
+  left: 0;
+}
+
+.li-header h1 {
+    position: absolute;
+    top: 100;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0);
+    padding: 80px 20px;
+    font-family: "Kaushan Script", cursive;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 3em;
+    letter-spacing: 2px;
+    color: var(--login-text);
+    text-shadow: 1px 0px 0 var(--login-text);
+    z-index: 5;
+}
+
+.waves {
+  position:relative;
+  width: 100%;
+  height:15vh;
+  margin-bottom:-7px;
+  min-height:100px;
+  max-height:150px;
+}
+
+.parallax > use {
+  animation: move-forever 160s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -16s;
+  animation-duration: 56s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -24s;
+  animation-duration: 80s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -32s;
+ animation-duration: 104s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -40s;
+  animation-duration: 160s;
+}
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% {
+    transform: translate3d(85px,0,0);
+  }
+}
+
+.li-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+#rating-form {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.smiley-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+#smiley {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    clip-path: circle(50% at 50% 50%);
+    transition: all 0.3s ease;
+}
+
+symbol {
+    overflow: visible;
+}
+
+button.rate-radio {
+  margin-right: .5em;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  &:last-of-type {margin-right: 0;}
+  svg {
+    display: block;
+    width: 5em;
+    height: 4.85em;
+    fill: var(--loggedin-bg);
+    stroke: var(--login-text);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    transform: scale(.70);
+    transition: transform .2s ease-in-out;
+    overflow: visible;
+  }
+  span {
+    padding: .4em .5em;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    border: solid 2px var(--login-text);
+    border-radius: .3em;
+    color: var(--login-text);
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(.5em) translateX(-50%) scale(0);
+    transition:
+      opacity .25s ease-in-out,
+      transform .25s ease-in-out;
+  }
+  .bg-color1 { background-color: #ea4740; }
+  .bg-color2 { background-color: #f47723; }
+  .bg-color3 { background-color: #fdd736; }
+  .bg-color4 { background-color: #bbd631; }
+  .bg-color5 { background-color: #5ebb46; }
+}
+
+button.rate-radio:hover svg {
+    fill: var(--gold);
+}
+
+button.rate-radio:active svg,
+ button.rate-radio:focus svg {
+  fill: var(--gold);
+  stroke-width: 2px;
+  transform: scale(1) translateY(-.25em);
+}
+
+button.rate-radio:hover span,
+button.rate-radio:focus span,
+button.rate-radio:active span {
+  opacity: 1;
+  transform: translateY(.5em) translateX(-50%) scale(1);
+}
+
+@media screen and (max-width: 1620px) {
+  .li-header h1 {
+    font-size: 4vw;
+  }
+  #smiley {
+     width: 20vw;
+    height: 20vw;
 }

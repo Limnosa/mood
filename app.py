@@ -67,11 +67,11 @@ def index():
             results = c.fetchall()
             if results:
                 session['user_id'] = results[0][0]
-                return render_template("logged_in.html")
+                return jsonify(success=True)
             else:
-                return render_template('index.html' , message="Login unsuccessful. Please try again!")
+                return jsonify(success=False, message= "Login unsuccessful. Please try again!")
         except sqlite3.Error as e:
-            print("Adatbázis hiba: " + str(e))
+                print("Adatbázis hiba: " + str(e))
         finally:
             if conn:
                 conn.close()
@@ -210,4 +210,4 @@ def set_timezone():
     return jsonify({"status": "success"})
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(debug=True)

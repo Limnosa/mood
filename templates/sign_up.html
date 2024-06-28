@@ -10,34 +10,53 @@
     <link href='https://fonts.googleapis.com/css2?family=Comme:wght@300;400;500;600;700;800;900&display=swap' rel='stylesheet'>
 </head>
 <body class="login-body">
-    <main>
-        <div class="wrapper signup">
-            <form action="/signup" method="POST">
-                <br><h2>Sign up</h2>
-                <div class="login-boxes">
-                    <input type="name" name="username" placeholder="Username">
-                    <i class='bx bxs-user-plus'></i>
+    <div class="container">
+        <main>
+            <div class="wrapper signup">
+                <form action="/signup" method="POST">
+                    <br><h2>Sign up</h2>
+                    <div class="login-boxes">
+                        <input type="name" name="username" placeholder="Username">
+                        <i class='bx bxs-user-plus'></i>
+                    </div>
+                    <div class="login-boxes">
+                        <input type="password" name="password" placeholder="Password">
+                        <i class='bx bxs-lock-alt' ></i><br>
+                    </div>
+                    <input type="submit" class="btn" value="Register">
+                    <div class="register" type="register">
+                            <p>Already have an account? <a href="/">Login</a></p>
+                    </div>
+                    <br>
+                    {% if message %}
+                    <div class="success">{{ message }}</div>
+                    {% elif message2 %}
+                    <div class="error">{{ message2 }}</div>
+                    {% elif message3 %}
+                    <div class="error">{{ message3 }}</div>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="index-waves">
+                    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                        <defs>
+                            <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#306AFF;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#3074ff;stop-opacity:1" />
+                            </linearGradient>
+                            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
+                        </defs>
+                        <g class="parallax">
+                            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.5)" />
+                            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(49, 146, 255, 0.3)" />
+                            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(49, 146, 255, 0.1)" />
+                            <use xlink:href="#gentle-wave" x="48" y="7" fill="url(#wave-gradient)" />
+                        </g>
+                    </svg>
                 </div>
-                <div class="login-boxes">
-                    <input type="password" name="password" placeholder="Password">
-                    <i class='bx bxs-lock-alt' ></i><br>
-                </div>
-                <input type="submit" class="btn" value="Register">
-                <div class="register" type="register">
-                        <p>Already have an account? <a href="/">Login</a></p>
-                </div>
-                <br>
-                {% if message %}
-                <div class="success">{{ message }}</div>
-                {% elif message2 %}
-                <div class="error">{{ message2 }}</div>
-                {% elif message3 %}
-                <div class="error">{{ message3 }}</div>
-                {% endif %}
-
-            </form>
-        </div>
-        <video src="https://videos.pexels.com/video-files/855785/855785-hd_1280_720_24fps.mp4" autoplay muted loop></video>
-    </main>
+                <div class="wave-background"></div>
+        </main>
+    </div>
 </body>
 </html>

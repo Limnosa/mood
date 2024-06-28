@@ -4,37 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <title>Mood</title>
+    <title>Login</title>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' >
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css2?family=Comme:wght@300;400;500;600;700;800;900&display=swap' rel='stylesheet'>
 </head>
 <body class="login-body">
-    <main>
-        <div class="wrapper login">
-            <form action="/" method="POST">
-                    <br>
-                    <h2>Login</h2>
-                    <div class="login-boxes">
-                        <input type="text" name="username" placeholder="Username">
-                        <i class='bx bxs-user'></i>
-                    </div>
-                    <div class="login-boxes">
-                        <input type="password" name="password" placeholder="Password">
-                        <i class='bx bxs-lock-alt' ></i><br>
-                    </div>
-                    <input type="submit" class="btn" value="Login">
-                    <div class="register" type="register">
-                        <p>Don't have an account? <a href="/signup">Register</a></p>
-                    </div>
-                    <br>
-                    {% if message %}
-                    <div class="error">{{ message }}</div><br>
-                    {% endif %}
-            </form>
-        </div>
-        <video src="https://videos.pexels.com/video-files/855785/855785-hd_1280_720_24fps.mp4" autoplay muted loop></video>
-    </main>
+    <div class="container">
+        <main>
+            <div class="wrapper login">
+                <form action="/" method="POST" id="loginForm">
+                        <br>
+                        <h2>Login</h2>
+                        <div class="login-boxes">
+                            <input type="text" name="username" placeholder="Username" autocomplete="username">
+                            <i class='bx bxs-user'></i>
+                        </div>
+                        <div class="login-boxes">
+                            <input type="password" name="password" placeholder="Password">
+                            <i class='bx bxs-lock-alt' ></i><br>
+                        </div>
+                        <input type="submit" class="btn" value="Login">
+                        <div class="register" type="register">
+                            <p>Don't have an account? <a href="/signup">Register</a></p>
+                        </div>
+                        <br>
+                        <div class="error">
+                            {% if message %}
+                                {{ message }}<br>
+                            {% endif %}
+                        </div>
+                </form>
+            </div>
+            <div class="index-waves">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#306AFF;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#3074ff;stop-opacity:1" />
+                        </linearGradient>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
+                    </defs>
+                    <g class="parallax">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.5)" />
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(49, 146, 255, 0.3)" />
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(49, 146, 255, 0.1)" />
+                        <use xlink:href="#gentle-wave" x="48" y="7" fill="url(#wave-gradient)" />
+                    </g>
+                </svg>
+            </div>
+            <div class="wave-background"></div>
+        </main>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
@@ -57,5 +79,6 @@
             });
         });
     </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

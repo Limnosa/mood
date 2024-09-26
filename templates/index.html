@@ -5,80 +5,68 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' >
+    <!--<link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' >-->
+    <link rel="stylesheet" href="../static/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css2?family=Comme:wght@300;400;500;600;700;800;900&display=swap' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Comme:wght@300;400;500;600;700;800;900&?family=Caveat:wght@500&display=swap' rel='stylesheet'>
 </head>
-<body class="login-body">
-    <div class="container">
-        <main>
-            <div class="wrapper login">
-                <form action="/" method="POST" id="loginForm">
-                        <br>
-                        <h2>Login</h2>
-                        <div class="login-boxes">
-                            <input type="text" name="username" placeholder="Username" autocomplete="username">
-                            <i class='bx bxs-user'></i>
-                        </div>
-                        <div class="login-boxes">
-                            <input type="password" name="password" placeholder="Password">
-                            <i class='bx bxs-lock-alt' ></i><br>
-                        </div>
-                        <input type="submit" class="btn" value="Login">
-                        <div class="register" type="register">
-                            <p>Don't have an account? <a href="/signup">Register</a></p>
-                        </div>
-                        <br>
-                        <div class="error">
-                            {% if message %}
-                                {{ message }}<br>
-                            {% endif %}
-                        </div>
-                </form>
-            </div>
-            <div class="index-waves">
-                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                    <defs>
-                        <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#306AFF;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#3074ff;stop-opacity:1" />
-                        </linearGradient>
-                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
-                    </defs>
-                    <g class="parallax">
-                        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.5)" />
-                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(49, 146, 255, 0.3)" />
-                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(49, 146, 255, 0.1)" />
-                        <use xlink:href="#gentle-wave" x="48" y="7" fill="url(#wave-gradient)" />
-                    </g>
-                </svg>
-            </div>
-            <div class="wave-background"></div>
-        </main>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            console.log("User Time Zone: " + userTimeZone);
-
-            fetch("/set_timezone", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ timezone: userTimeZone })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Time zone set:", data);
-            })
-            .catch(error => {
-                console.error("Error setting time zone:", error);
-            });
-        });
-    </script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<body>
+    <header>
+        <img class="logo" src="../static/pics/Mood_logo.png">
+        <nav>
+            <ul>
+                <li><a class="nav-signup" href="/signup">Sign up</a></li>
+                <li><a class="nav-about" href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="login-body">
+        <div class="wrapper">
+            <form action="/" method="POST" id="loginForm">
+                    <h2>Hey!<br> Welcome back!</h2>
+                    <p class="greeting-text">Enter your details below</p>
+                    <div class="login-boxes">
+                        <input type="text" name="username" placeholder="Username" autocomplete="username">
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="login-boxes">
+                        <input type="password" name="password" placeholder="Password">
+                        <i class='bx bxs-lock-alt' ></i>
+                    </div>
+                    <input type="submit" class="btn" value="Login">
+                    <div class="register" type="register">
+                        <p>Don't have an account? <a href="/signup">Register</a></p>
+                    </div>
+                    <div class="error">
+                        {% if message %}
+                            {{ message }}
+                        {% endif %}
+                    </div>
+            </form>
+        </div>
+        <img class="vector" src="../static/pics/emotions-preview.png" alt="">
+    </main>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        console.log("User Time Zone: " + userTimeZone);
+
+        fetch("http://localhost:5000/set_timezone", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ timezone: userTimeZone })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Time zone set:", data);
+        })
+        .catch(error => {
+            console.error("Error setting time zone:", error);
+        });
+    });
+</script>
 </html>

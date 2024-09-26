@@ -6,70 +6,47 @@
           content="width=device-width, initial-scale=1.0">
     <title>Main</title>
     <link rel="shortcut icon" href="#">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet' >
+    <link rel="stylesheet" href="../static/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css2?family=Comme:wght@300;400;500;600;700;800;900&display=swap' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
 </head>
-
-<body class="li-body">
-    <div class="li-wave-bg"></div>
-    <div class="container">
-        <header class="li-header">
-            <div class="nav-bar">
-                <a href="/statistics" class="mood-chart">Mood Chart</a>
-                <a href="/" class="sign-out"><i class='bx bx-log-out-circle'></i> Sign out</a>
+<body>
+    <header>
+        <img class="logo" src="../static/pics/Mood_logo.png">
+        <nav>
+            <ul>
+                <li><a href="/statistics" class="mood-chart">Mood Chart</a></li>
+                <li><a href="/" class="sign-out"><i class='bx bx-log-out-circle'></i> Sign out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="loggedin-body">
+        <h1 class="question-title">How are you feeling right now?</h1>
+        <svg width="0" height="0">
+            <symbol id="star" viewBox="0 0 53.867 53.867">
+                <polygon class="star-icon"
+            points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 10.288,52.549 13.467,34.013 0,20.887 18.611,18.182"></polygon>
+            </symbol>
+        </svg>
+        <form id="rating-form" action="/setmood" method="POST">
+            <div class="smiley-container">
+                <img id="smiley" src="static/pics/midmood.jpg" alt="Neutral">
             </div>
-            <h1 class="question">How are you feeling right now?</h1>
-            <div>
-                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 25 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                    <defs>
-                        <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#306AFF;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#3074ff;stop-opacity:1" />
-                        </linearGradient>
-                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
-                    </defs>
-                    <g class="parallax">
-                        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.1)"/>
-                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.3)"/>
-                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.5)"/>
-                        <use xlink:href="#gentle-wave" x="48" y="7" fill="url(#wave-gradient)"/>
-
-                    </g>
-                </svg>
+            <div class="rating">
+                <button type="button" class="rate-radio" data-rating="1"><svg>
+                <use xlink:href="#star"></use></svg><span class="bg-color1">Awful</span></button>
+                <button type="button" class="rate-radio" data-rating="2"><svg>
+                <use xlink:href="#star"></use></svg><span class="bg-color2">Bad</span></button>
+                <button type="button" class="rate-radio" data-rating="3"><svg>
+                <use xlink:href="#star"></use></svg><span class="bg-color3">Ok</span></button>
+                <button type="button" class="rate-radio" data-rating="4"><svg>
+                <use xlink:href="#star"></use></svg><span class="bg-color4">Good</span></button>
+                <button type="button" class="rate-radio" data-rating="5"><svg>
+                <use xlink:href="#star"></use></svg><span class="bg-color5">Great</span></button>
             </div>
-        </header>
-        <div class="li-main">
-            <main >
-                <svg width="0" height="0" style="position: absolute;">
-                    <symbol id="star" viewBox="0 0 53.867 53.867">
-                        <polygon class="star-icon"
-                    points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 10.288,52.549 13.467,34.013 0,20.887 18.611,18.182"></polygon>
-                    </symbol>
-                </svg>
-                <form id="rating-form" action="/setmood" method="POST">
-                    <div class="smiley-container">
-                        <img id="smiley" src="static/pics/midmood.jpg" alt="Neutral">
-                    </div>
-                    <div class="rating">
-                        <button type="button" class="rate-radio" data-rating="1"><svg>
-                        <use xlink:href="#star"></use></svg><span class="bg-color1">Awful</span></button>
-                        <button type="button" class="rate-radio" data-rating="2"><svg>
-                        <use xlink:href="#star"></use></svg><span class="bg-color2">Bad</span></button>
-                        <button type="button" class="rate-radio" data-rating="3"><svg>
-                        <use xlink:href="#star"></use></svg><span class="bg-color3">Ok</span></button>
-                        <button type="button" class="rate-radio" data-rating="4"><svg>
-                        <use xlink:href="#star"></use></svg><span class="bg-color4">Good</span></button>
-                        <button type="button" class="rate-radio" data-rating="5"><svg>
-                        <use xlink:href="#star"></use></svg><span class="bg-color5">Great</span></button>
-                    </div>
-                    <input type="hidden" name="mood" id="mood-input">
-                </form>
-            </main>
-        </div>
-    </div>
+            <input type="hidden" name="mood" id="mood-input">
+        </form>
+    </main>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

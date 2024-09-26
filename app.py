@@ -67,7 +67,7 @@ def index():
             results = c.fetchall()
             if results:
                 session['user_id'] = results[0][0]
-                return jsonify(success=True)
+                return render_template('logged_in.html')
             else:
                 return jsonify(success=False, message= "Login unsuccessful. Please try again!")
         except sqlite3.Error as e:
